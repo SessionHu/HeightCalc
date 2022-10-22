@@ -101,22 +101,22 @@ Attribute VB_Exposed = False
 Private Sub Combo1_Click()
     '以下为公制单位
         If Combo1.Text = "厘米(㎝)" Then
-            Let m = Val(Text1.Text) * 100
+            Let m = Val(Text1.Text) / 100
         End If
         If Combo1.Text = "米(m)" Then
             Let m = Val(Text1.Text)
         End If
         If Combo1.Text = "毫米(㎜)" Then
-            Let m = Val(Text1.Text) * 1000
+            Let m = Val(Text1.Text) / 1000
         End If
         If Combo1.Text = "分米(dm)" Then
-            Let m = Val(Text1.Text) * 10
+            Let m = Val(Text1.Text) / 10
         End If
         If Combo1.Text = "纳米(nm)" Then
-            Let m = Val(Text1.Text) / (10 ^ -9)
+            Let m = Val(Text1.Text) * (10 ^ -9)
         End If
         If Combo1.Text = "微米(μm)" Then
-            Let m = Val(Text1.Text) / (10 ^ -6)
+            Let m = Val(Text1.Text) * (10 ^ -6)
         End If
         If Combo1.Text = "千米(㎞)" Then
             Let m = Val(Text1.Text) * 1000
@@ -181,22 +181,22 @@ End Sub
 Private Sub Text1_Change()
     '以下为公制单位
         If Combo1.Text = "厘米(㎝)" Then
-            Let m = Val(Text1.Text) * 100
+            Let m = Val(Text1.Text) / 100
         End If
         If Combo1.Text = "米(m)" Then
             Let m = Val(Text1.Text)
         End If
         If Combo1.Text = "毫米(㎜)" Then
-            Let m = Val(Text1.Text) * 1000
+            Let m = Val(Text1.Text) / 1000
         End If
         If Combo1.Text = "分米(dm)" Then
-            Let m = Val(Text1.Text) * 10
+            Let m = Val(Text1.Text) / 10
         End If
         If Combo1.Text = "纳米(nm)" Then
-            Let m = Val(Text1.Text) / (10 ^ -9)
+            Let m = Val(Text1.Text) * (10 ^ -9)
         End If
         If Combo1.Text = "微米(μm)" Then
-            Let m = Val(Text1.Text) / (10 ^ -6)
+            Let m = Val(Text1.Text) * (10 ^ -6)
         End If
         If Combo1.Text = "千米(㎞)" Then
             Let m = Val(Text1.Text) * 1000
@@ -256,6 +256,15 @@ Private Sub Text1_Change()
     Print ""                    'debug
     Print ""                    'debug
     Print "DEBUG: m:"; m        'debug
+End Sub
+
+
+Private Sub Combo2_Click
+    If Combo2.Text = "厘米(㎝)" Then
+        Let Text2.Text = Val(m) * 100
+    End if
+    '...
+    '...
 End Sub
 
 
