@@ -100,7 +100,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Dim m As String
 
-Sub CalcIn()
+Public Sub CalcIn()
      '以下为公制单位
         If Combo1.Text = "厘米(㎝)" Then
             Let m = Val(Text1.Text) / 100
@@ -172,23 +172,79 @@ Sub CalcIn()
             Let m = Val(Text1.Text) * (1.495978707 * 10 ^ 11)
         End If
     '以上为不常用单位
-    If (m < 1 And m > 0) Or (m > -1 And m < 0) Then                                         '规范±1以内数字显示问题
-        If m < 0 Then
-            Let m = "-" & "0" & Abs(m)                                                      '规范负数<1显示问题
-        Else
-            Let m = "0" & m                                                                 '规范正数显示问题
-        End If
-    End If
-    Form1.Cls                   'debug
-    Print ""                    'debug
-    Print ""                    'debug
-    Print ""                    'debug
-    Print ""                    'debug
-    Print "DEBUG: m:"           'debug
-    Print m                     'debug
 End Sub
-Sub CalcOut()
-    '
+Public Sub CalcOut()
+     '以下为公制单位
+        If Combo2.Text = "厘米(㎝)" Then
+            Let Text2.Text = Val(m) * 100
+        End If
+        If Combo2.Text = "米(m)" Then
+            Let Text2.Text = Val(m)
+        End If
+        If Combo2.Text = "毫米(㎜)" Then
+            Let Text2.Text = Val(m) * 1000
+        End If
+        If Combo2.Text = "分米(dm)" Then
+            Let Text2.Text = Val(m) * 10
+        End If
+        If Combo2.Text = "纳米(nm)" Then
+            Let Text2.Text = Val(m) / (10 ^ -9)
+        End If
+        If Combo2.Text = "微米(μm)" Then
+            Let Text2.Text = Val(m) / (10 ^ -6)
+        End If
+        If Combo2.Text = "千米(㎞)" Then
+            Let Text2.Text = Val(m) / 1000
+        End If
+    '公制单位完成
+    '以下为市制单位
+        If Combo2.Text = "（市）里" Then
+            Let Text2.Text = Val(m) / 500
+        End If
+        If Combo2.Text = "（市）引" Then
+            Let Text2.Text = Val(m) / (100 / 3)
+        End If
+        If Combo2.Text = "（市）丈" Then
+            Let Text2.Text = Val(m) * 0.3
+        End If
+        If Combo2.Text = "（市）尺" Then
+            Let Text2.Text = Val(m) * 3
+        End If
+        If Combo2.Text = "（市）寸" Then
+            Let Text2.Text = Val(m) * 30
+        End If
+        If Combo2.Text = "（市）分" Then
+            Let Text2.Text = Val(m) * 300
+        End If
+        If Combo2.Text = "（市）厘" Then
+            Let Text2.Text = Val(m) * 3000
+        End If
+    '以上为市制单位
+    '以下为英制单位
+        If Combo2.Text = "英里(mi)" Then
+            Let Text2.Text = Val(m) / 1690.9344
+        End If
+        If Combo2.Text = "码(yd)" Then
+            Let Text2.Text = Val(m) / 0.9144
+        End If
+        If Combo2.Text = "英尺(ft)" Then
+            Let Text2.Text = Val(m) / 0.3048
+        End If
+        If Combo2.Text = "英寸(in)" Then
+            Let Text2.Text = Val(m) / 0.0254
+        End If
+    '以上为英制单位
+    '以下为不常用单位
+        If Combo2.Text = "海里(n mile)" Then
+            Let Text2.Text = Val(m) / 1852
+        End If
+        If Combo2.Text = "光年(ly)" Then
+            Let Text2.Text = Val(m) / (9.4607304725808 * 10 ^ 15)
+        End If
+        If Combo2.Text = "天文单位(A.U.)" Then
+            Let Text2.Text = Val(m) / (1.495978707 * 10 ^ 11)
+        End If
+    '以上为不常用单位
 End Sub
 
 
@@ -202,11 +258,16 @@ End Sub
 
 Private Sub Combo1_Click()
     Call CalcIn
+    Call CalcOut
 End Sub
 Private Sub Text1_Change()
     Call CalcIn
+    Call CalcOut
 End Sub
-
+Private Sub Combo2_Click()
+    Call CalcIn
+    Call CalcOut
+End Sub
 
 
 
