@@ -26,7 +26,7 @@ Begin VB.Form Form1
       Height          =   375
       ItemData        =   "Form1.frx":048A
       Left            =   1980
-      List            =   "Form1.frx":04D9
+      List            =   "Form1.frx":04DC
       Style           =   2  'Dropdown List
       TabIndex        =   6
       ToolTipText     =   "结果单位"
@@ -35,9 +35,9 @@ Begin VB.Form Form1
    End
    Begin VB.ComboBox Combo1 
       Height          =   375
-      ItemData        =   "Form1.frx":05E7
+      ItemData        =   "Form1.frx":05F6
       Left            =   1980
-      List            =   "Form1.frx":0636
+      List            =   "Form1.frx":0648
       Style           =   2  'Dropdown List
       TabIndex        =   5
       ToolTipText     =   "原单位"
@@ -65,7 +65,6 @@ Begin VB.Form Form1
       Width           =   855
    End
    Begin VB.TextBox Text2 
-      Enabled         =   0   'False
       Height          =   375
       Left            =   120
       Locked          =   -1  'True
@@ -171,6 +170,9 @@ Public Sub CalcIn()
         If Combo1.Text = "天文单位(A.U.)" Then
             Let m = Val(Text1.Text) * (1.495978707 * 10 ^ 11)
         End If
+        If Combo1.Text = "秒差距(pc)" Then
+            Let m = Val(Text1.Text) * ((3.08567758146719 * 10 ^ 16) + 15.808)
+        End If
     '以上为不常用单位
 End Sub
 Public Sub CalcOut()
@@ -244,7 +246,22 @@ Public Sub CalcOut()
         If Combo2.Text = "天文单位(A.U.)" Then
             Let Text2.Text = Val(m) / (1.495978707 * 10 ^ 11)
         End If
+        If Combo2.Text = "秒差距(pc)" Then
+            Let Text2.Text = Val(m) / ((3.08567758146719 * 10 ^ 16) + 15.808)
+        End If
     '以上为不常用单位
+    '以下为修复±1以内显示
+        If ((Val(Text2.Text) > 0) And (Val(Text2.Text) < 1)) Then
+            If Left(Text2.Text, 1) = "." Then
+                Let Text2.Text = "0" & Text2.Text
+            End If
+        End If
+        If ((Val(Text2.Text) < 0) And (Val(Text2.Text) > -1)) Then
+            If Mid(Text2.Text, 2, 1) = "." Then
+                Let Text2.Text = "-0" & Abs(Val(Text2.Text))
+            End If
+        End If
+    '以上为修复±1以内显示
 End Sub
 
 
@@ -253,6 +270,7 @@ End Sub
 Private Sub Form_Load()
     Let Combo1.Text = "厘米(㎝)"
     Let Combo2.Text = "米(m)"
+    Let Text2.Text = ""
 End Sub
 
 
@@ -278,7 +296,7 @@ End Sub
 
 Private Sub Command2_Click()
     Let Text1.Text = ""                                                                     '清除输入文字
-    Let Text2.Text = ""                                                                     '清除输出文字
+    Let Text2.Text = "0"                                                                    '清除输出文字
 End Sub
 
 
