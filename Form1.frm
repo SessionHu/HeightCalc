@@ -65,7 +65,6 @@ Begin VB.Form Form1
       Width           =   855
    End
    Begin VB.TextBox Text2 
-      Enabled         =   0   'False
       Height          =   375
       Left            =   120
       Locked          =   -1  'True
@@ -245,6 +244,14 @@ Public Sub CalcOut()
             Let Text2.Text = Val(m) / (1.495978707 * 10 ^ 11)
         End If
     '以上为不常用单位
+    '以下为修复±1以内显示
+        If ((Val(Text2.Text) > 0) And (Val(Text2.Text) < 1)) Then
+            Let Text2.Text = "0" & Text2.Text
+        End If
+        If ((Val(Text2.Text) < 0) And (Val(Text2.Text) > -1)) Then
+            Let Text2.Text = "-0" & Abs(Val(Text2.Text))
+        End If
+    '以上为修复±1以内显示
 End Sub
 
 
@@ -253,6 +260,7 @@ End Sub
 Private Sub Form_Load()
     Let Combo1.Text = "厘米(㎝)"
     Let Combo2.Text = "米(m)"
+    Let Text2.Text = ""
 End Sub
 
 
@@ -278,7 +286,7 @@ End Sub
 
 Private Sub Command2_Click()
     Let Text1.Text = ""                                                                     '清除输入文字
-    Let Text2.Text = ""                                                                     '清除输出文字
+    Let Text2.Text = "0"                                                                    '清除输出文字
 End Sub
 
 
